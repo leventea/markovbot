@@ -2,14 +2,12 @@ defmodule SentenceProvider do
   use GenServer
 
   alias Markov, as: M
-
-  import TelegramExportParser
   import List
 
   # CLIENT API
 
   def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, opts)
+    GenServer.start_link(__MODULE__, [], opts)
   end
 
   def train(pid, list) when is_list(list) do

@@ -21,6 +21,7 @@ defmodule TelegramBot.Helpers do
         update.edited_message == nil
     and update.message.text != nil
     and String.length(update.message.text) > 0
+    and update.message.chat.id == -1001382033469
   end
 
   def reply(message, text, opts \\ []) do

@@ -8,7 +8,7 @@ defmodule TelegramBot.Supervisor do
   def init(_args) do
     children = [
       { TelegramBot.Stage.UpdateProducer, name: TelegramBot.Stage.UpdateProducer },
-      { TelegramBot.EventPoller, "my name jeff" },
+      { TelegramBot.EventPoller, nil },
 
       { TelegramBot.Stage.UpdateConsumer, name: TelegramBot.Stage.UpdateConsumer }
     ]

@@ -11,16 +11,16 @@ defmodule TelegramBot.EventHandler do
   end
 
   defp dispatch_update(_update, msg) do
+    admin = msg.from.id in [532217020]
 
     cmd = parse_command(msg)
     cond do
-      cmd != nil -> handle_command(cmd, msg)
+      cmd != nil -> handle_command(cmd, msg, admin)
       true -> handle_message(msg)
     end
   end
 
   def handle_message(msg) do
-    IO.puts msg.text
     # H.reply(message, "hello")
   end
 end
