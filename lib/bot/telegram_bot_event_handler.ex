@@ -22,8 +22,6 @@ defmodule TelegramBot.EventHandler do
   end
 
   def handle_message(msg) do
-    IO.inspect(msg)
-
     SentenceProvider.train(SentenceProvider, [ msg.text ])
 
     # randomly reply to the message

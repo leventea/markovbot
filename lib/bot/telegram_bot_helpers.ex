@@ -73,13 +73,17 @@ defmodule TelegramBot.Helpers do
   end
   
   @doc """
-  Returns true if the message mentions the bot.
+  Returns whether the message mentions the bot.
   """
   def is_mentioned?(msg) do
     ments = mentions(msg)
     {:ok, me} = Nadia.get_me()
 
-    me.username in ments
+    unless ments == nil do
+      me.username in ments
+    else
+      false
+    end
   end
 
   @doc """
