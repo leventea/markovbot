@@ -27,3 +27,6 @@ markov_bot-*.tar
 
 # Telegram export
 export.json
+
+# Ignore chain state files
+*.chain
