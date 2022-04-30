@@ -25,7 +25,8 @@ defmodule MarkovBot.MixProject do
       {:jason, "~> 1.3"},
       {:markov, "~> 1.2"},
       {:nadia, "~> 0.7"},
-      {:gen_stage, "~> 1.1"}
+      {:gen_stage, "~> 1.1"},
+      {:quantum, "~> 3.4"}
     ]
   end
 end

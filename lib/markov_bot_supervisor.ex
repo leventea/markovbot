@@ -8,7 +8,8 @@ defmodule MarkovBot.Supervisor do
   def init(_args) do
     children = [
       { SentenceProvider.Supervisor, name: SentenceProvider.Supervisor },
-      { TelegramBot.Supervisor, name: TelegramBot.Supervisor }
+      { TelegramBot.Supervisor, name: TelegramBot.Supervisor },
+      MarkovBot.Scheduler
     ]
 
     Supervisor.init(children, strategy: :rest_for_one)
