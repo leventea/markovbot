@@ -40,7 +40,7 @@ defmodule TelegramBot.Helpers do
     if me.username == uname do
       String.trim_leading(cmd, "/")
     else
-      nil
+      :invalid
     end
   end
 

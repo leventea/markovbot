@@ -15,12 +15,13 @@ defmodule TelegramBot.EventHandler do
 
     cmd = parse_command(msg)
     cond do
+      cmd == :invalid -> nil # do nothing
       cmd != nil -> handle_command(cmd, msg, admin)
       true -> handle_message(msg)
     end
   end
 
   def handle_message(msg) do
-    # H.reply(message, "hello")
+    SentenceProvider.train(SentenceProvider, [ msg.text ])
   end
 end
