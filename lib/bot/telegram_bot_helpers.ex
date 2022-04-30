@@ -3,7 +3,9 @@ defmodule TelegramBot.Helpers do
 
   # message helpers
 
-  @doc "Returns the name of the command, or nil if there's no command in the message"
+  @doc """
+  Returns the invoked command's name, or nil if the message does not contain one.
+  """
   def parse_command(msg) do
     ents = msg.entities
 
@@ -12,9 +14,32 @@ defmodule TelegramBot.Helpers do
       cmd_ent = List.first(cmds)
 
       if cmd_ent != nil do
-        String.slice(msg.text, (cmd_ent.offset + 1)..cmd_ent.length)
+        if String.contains?(msg.text, "@") do
+          parse_targeted_command(msg.text)
+        else
+          String.slice(msg.text, (cmd_ent.offset + 1)..cmd_ent.length)
+        end
       else nil end
     else nil end
+  end
+
+  @doc """
+  A targeted command also contains the @ of the invoked bot.
+  Ex.: /start@example_bot (instead of /start alone)
+
+  Returns nil if the provided handle differs from the bot's own,
+  otherwise it returns the invoked command's name.
+  """
+  defp parse_targeted_command(text) do
+    split = String.split(text, "@", parts: 2, trim: true)
+    uname = List.last(split)
+    {:ok, me} = Nadia.get_me()
+
+    if me.username == uname do
+      String.trim_leading(List.first(split), "/")
+    else
+      nil
+    end
   end
 
   def has_valid_msg(update) do
