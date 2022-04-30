@@ -29,7 +29,11 @@ defmodule SentenceProvider do
   def load_state(pid, path) do
     GenServer.call(pid, {:load_state, path})
   end
-  
+
+  def link_count(pid) do
+    GenServer.call(pid, {:link_count})
+  end
+
   # SERVER API
 
   @impl true
@@ -75,5 +79,10 @@ defmodule SentenceProvider do
         { :reply, :ok, chain }
       err -> { :reply, err, state_chain } # doesn't modify state on failure
     end
+  end
+
+  @impl true
+  def handle_call({:link_count}, _caller, state_chain) do
+    { :reply, { :ok, Enum.count(state_chain.links) }, state_chain }
   end
 end
