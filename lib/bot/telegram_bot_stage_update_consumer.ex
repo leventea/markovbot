@@ -13,7 +13,7 @@ defmodule TelegramBot.Stage.UpdateConsumer do
   end
 
   def handle_events(events, _from, _state) do
-    Task.async_stream(events, Handler, :handle_update, []) |> Enum.to_list
+    Enum.each(events, fn up -> Handler.handle_update(up) end)
 
     {:noreply, [], []}
   end
