@@ -22,11 +22,13 @@ defmodule TelegramBot.EventHandler do
   end
 
   def handle_message(msg) do
+    IO.inspect(msg)
+
     SentenceProvider.train(SentenceProvider, [ msg.text ])
 
     # randomly reply to the message
     # NOTE: should probably use config files for this
-    if Enum.random(1..100) < 25 do
+    if guaranteed_reply?(msg) or Enum.random(1..100) < 10 do
       {:ok, response} = SentenceProvider.generate_sentence(SentenceProvider)
       reply(msg, response)
     end

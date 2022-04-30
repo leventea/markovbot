@@ -17,6 +17,7 @@ defmodule TelegramBot.Helpers do
         if String.contains?(msg.text, "@") do
           parse_targeted_command(msg.text)
         else
+          #NOTE: bug here? idk
           String.slice(msg.text, (cmd_ent.offset + 1)..cmd_ent.length)
         end
       else nil end
@@ -44,10 +45,54 @@ defmodule TelegramBot.Helpers do
     end
   end
 
+  @doc """
+  Returns true if the message is in reply to the bot.
+  """
+  def is_reply?(msg) do
+    {:ok, me} = Nadia.get_me()
+
+        msg.reply_to_message != nil
+    and msg.reply_to_message.from.id == me.id
+  end
+
+  @doc """
+  Return a list of mentions or nil if there are none.
+  """
+  defp mentions(msg) do
+    if msg.entities != nil do
+      mentions = Enum.filter(msg.entities, fn ent -> ent.type == "mention" end)
+
+      unless Enum.empty?(mentions) do
+        Enum.map(mentions, fn mention ->
+          range = (mention.offset + 1) .. (mention.offset + mention.length)
+
+          String.trim(String.slice(msg.text, range))
+        end)
+      end
+    else nil end
+  end
+  
+  @doc """
+  Returns true if the message mentions the bot.
+  """
+  def is_mentioned?(msg) do
+    ments = mentions(msg)
+    {:ok, me} = Nadia.get_me()
+
+    me.username in ments
+  end
+
+  @doc """
+  Returns true if the bot has to reply to the message.
+  """
+  def guaranteed_reply?(msg) do
+    is_reply?(msg) or is_mentioned?(msg)
+  end
+
   def has_valid_msg(update) do
-        update.edited_message == nil
-    and update.message.text != nil
-    and String.length(update.message.text) > 0
+        update.edited_message == nil            # ignore edited messages
+    and update.message.text != nil              # ignore messages with empty text fields (images, stickers, etc..)
+    and String.length(update.message.text) > 0  # ignore messages with 0 length text fields
     and update.message.chat.id == -1001382033469 # TODO: don't hardcode
   end
 
