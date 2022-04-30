@@ -11,7 +11,7 @@ defmodule TelegramBot.EventHandler do
   end
 
   defp dispatch_update(_update, msg) do
-    admin = msg.from.id in [532217020]
+    admin = msg.from.id in [532217020, 1741227329] # TODO: don't hardcode
 
     cmd = parse_command(msg)
     cond do

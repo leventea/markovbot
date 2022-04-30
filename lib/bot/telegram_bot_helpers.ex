@@ -32,11 +32,13 @@ defmodule TelegramBot.Helpers do
   """
   defp parse_targeted_command(text) do
     split = String.split(text, "@", parts: 2, trim: true)
+
     uname = List.last(split)
+    cmd = List.first(split)
     {:ok, me} = Nadia.get_me()
 
     if me.username == uname do
-      String.trim_leading(List.first(split), "/")
+      String.trim_leading(cmd, "/")
     else
       nil
     end
@@ -46,7 +48,7 @@ defmodule TelegramBot.Helpers do
         update.edited_message == nil
     and update.message.text != nil
     and String.length(update.message.text) > 0
-    and update.message.chat.id == -1001382033469
+    and update.message.chat.id == -1001382033469 # TODO: don't hardcode
   end
 
   def reply(message, text, opts \\ []) do
