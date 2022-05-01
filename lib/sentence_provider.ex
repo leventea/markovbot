@@ -64,6 +64,8 @@ defmodule SentenceProvider do
   def handle_call({:save_state, path}, _caller, state_chain) do
     bin = :erlang.term_to_binary(state_chain)
 
+    # TODO: don't overwrite the state file if the contained chain is larger
+
     case File.write(path, bin, [ :binary ]) do
       :ok -> { :reply, :ok, state_chain }
       err -> { :reply, err, state_chain }
