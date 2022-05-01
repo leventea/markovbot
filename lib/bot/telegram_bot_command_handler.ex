@@ -1,9 +1,6 @@
 defmodule TelegramBot.CommandHandler do
   import TelegramBot.Helpers
 
-  alias SentenceProvider, as: SP
-  alias TelegramExportParser, as: EP
-
   def handle_command(cmd, msg, admin \\ false)
 
   def handle_command("links", msg, _admin) do

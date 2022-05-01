@@ -97,7 +97,7 @@ defmodule TelegramBot.Helpers do
         update.edited_message == nil            # ignore edited messages
     and update.message.text != nil              # ignore messages with empty text fields (images, stickers, etc..)
     and String.length(update.message.text) > 0  # ignore messages with 0 length text fields
-    and update.message.chat.id == -1001382033469 # TODO: don't hardcode
+    and update.message.chat.id == Application.get_env(:markov_bot, :chat_id)
   end
 
   def reply(message, text, opts \\ []) do

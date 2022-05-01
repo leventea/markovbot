@@ -25,7 +25,7 @@ defmodule TelegramBot.Stage.UpdateProducer do
     {:noreply, updates, :ok} # instantly buffer/dispatch updates
   end
 
-  def handle_demand(demand, _state) do
+  def handle_demand(_demand, _state) do
     {:noreply, [], :ok} # ignore demands
   end
 end
