@@ -8,7 +8,7 @@ config :nadia,
 
 config :markov_bot,
   log_ignored: false,                 # boolean, if set to true, it will log info related to ignored messages
-                                      # helpful if you can't figure out a chat's / user's ID
+                                      #          helpful if you can't figure out a chat's / user's ID
   backup_dir: "./backups",            # string, directory the backups get copied to
   autosave_path: "./state.chain",     # string, path the chain gets auto-saved to
   keep_backups_for: 7,                # integer, discard backups older than n days
