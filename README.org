@@ -5,26 +5,38 @@ A Telegram bot that trains a markov chain on your group chat.
 
 ** Running
 - Clone the repository and configure the bot in ~config/config.exs~.
-- Run src_shell{mix deps.get} to install the dependencies
-- src_shell{mix run} to run normally OR src_shell{iex -S mix} for a REPL
 
 ** Training the bot on a Telegram export
 
-The src_elixir{MarkovBot.Utilities} module contains a helper function that trains the bot on a JSON Telegram export.
+The ~MarkovBot.Utilities~ module contains a helper function that trains the bot on a JSON Telegram export.
 
-- Open a REPL (src_shell{iex -S mix})
-- Run src_elixir{MarkovBot.Utilties.train_from_telegram("/path/to/file.json")}
+#+NAME: Start an iex session
+#+BEGIN_SRC shell
+iex -S mix # Start an iex session along with the bot
+#+END_SRC
 
-Note: In case you wish to return the chain to its previous state later, force a backup with a non-timestamp name (only timestamped files get purged) via
-src_elixir{MarkovBot.Scheduler.Tasks.backup("backup_name")}
+#+NAME: Train the chain on an export
+#+BEGIN_SRC elixir
 
-- Force an auto-save to write the chain to disk via src_elixir{MarkovBot.Scheduler.Tasks.autosave/0}
+# NOTE: in case you wish to return to the previous state of the chain,
+# you can use a named backup, since they will not get purged
+MarkovBot.Scheduler.Tasks.backup("backup_name")
+
+MarkovBot.Utilities.train_from_telegram("path/to/file.json") # relative paths can be used
+
+MarkovBot.Scheduler.Tasks.autosave # force an auto-save to write the updated chain to disk
+#+END_SRC
 
 ** Updating the configuration at runtime
 
-You can update the config at runtime with built-in Elixir utilities from the Application module,
-such as src_elixir{Application.put_env/3} or src_elixir{Application.put_all_env/1}. However, this will not update the ~config/config.exs~ file,
+You can update the config at runtime with built-in Elixir utilities from the ~Application~ module,
+but be aware it will not write your changes into ~config/config.exs~,
 in order to make your changes persistent you will have to edit it manually.
+
+#+NAME: Updating the configuration during runtime
+#+BEGIN_SRC elixir
+Application.put_env(:markov_bot, :admins, [ 12345 ]) # overwrite the list of admins
+#+END_SRC
 
 ** Defaults
 
