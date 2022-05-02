@@ -10,6 +10,8 @@ defmodule TelegramBot.CommandHandler do
   end
 
   def handle_command(cmd, _msg, _admin) do
-    IO.puts("unknown / unauthorized for: #{cmd}")
+    if Application.get_env(:markov_bot, :log_ignored) do
+      IO.puts("unknown / unauthorized for: #{cmd}")
+    end
   end
 end
