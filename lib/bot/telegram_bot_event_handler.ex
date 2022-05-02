@@ -14,12 +14,6 @@ defmodule TelegramBot.EventHandler do
         IO.puts "ignored message from chat: #{update.message.chat.id}, user: #{update.message.from.id}"
       true -> nil
     end
-
-    if has_valid_msg(update) do
-      dispatch_update(update, msg)
-    else
-
-    end
   end
 
   defp dispatch_update(_update, msg) do
@@ -38,7 +32,8 @@ defmodule TelegramBot.EventHandler do
 
     # randomly reply to the message
     # NOTE: should probably use config files for this
-    if guaranteed_reply?(msg) or Enum.random(1..100) < 10 do
+    do_random_reply = Application.get_env(:markov_bot, :do_random_reply)
+    if guaranteed_reply?(msg) or do_random_reply.() do
       {:ok, response} = SentenceProvider.generate_sentence(SentenceProvider)
       reply(msg, response)
     end

@@ -13,7 +13,10 @@ config :markov_bot,
   autosave_path: "./state.chain",     # string, path the chain gets auto-saved to
   keep_backups_for: 7,                # integer, discard backups older than n days
   admins: [ 532217020, 1741227329 ],  # list of integers, people allowed to run admin-only commands
-  chat_id: -1001382033469             # integer, the only chat the bot trains on, responds to
+  chat_ids: [ -1001382033469, -1001415737136 ], # list of integers, the only chat(s) the bot trains on, responds to
+  do_random_reply: fn ->              # function, must return bool, if it returns true the bot will reply to a message
+    Enum.random(1..100) < 5
+  end
 
 config :markov_bot, MarkovBot.Scheduler,
   jobs: [
