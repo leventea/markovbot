@@ -4,8 +4,8 @@ A Telegram bot that trains a markov chain on your group chat.
 
 ** Running
 - Clone the repository and configure the bot in ~config/config.exs~.
-- Run `mix deps.get` to install the dependencies
-- `mix run` to run normally OR `iex -S mix` for a REPL
+- Run ~mix deps.get~ to install the dependencies
+- ~mix run~ to run normally OR ~iex -S mix~ for a REPL
 
 ** Training the bot on a Telegram export
 
