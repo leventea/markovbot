@@ -30,3 +30,6 @@ markov_bot-*.tar
 
 # Ignore chain state files
 *.chain
+
+# Ignore generated org-mode HTML files
+*.html
