@@ -5,7 +5,7 @@ defmodule MarkovBot do
     {:ok, main_sup} = MarkovBot.Supervisor.start_link()
 
     # load the previous chain state auto-save
-    chain_path = Path.absname("./state.chain")
+    chain_path = Path.absname(Application.get_env(:markov_bot, :autosave_path))
     if File.exists?(chain_path) do
       SentenceProvider.load_state(SentenceProvider, chain_path)
     end
