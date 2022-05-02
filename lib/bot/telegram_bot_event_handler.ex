@@ -31,7 +31,6 @@ defmodule TelegramBot.EventHandler do
     SentenceProvider.train(SentenceProvider, [ msg.text ])
 
     # randomly reply to the message
-    # NOTE: should probably use config files for this
     do_random_reply = Application.get_env(:markov_bot, :do_random_reply)
     if guaranteed_reply?(msg) or do_random_reply.() do
       {:ok, response} = SentenceProvider.generate_sentence(SentenceProvider)
