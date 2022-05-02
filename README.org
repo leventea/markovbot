@@ -1,6 +1,5 @@
-#+title: MarkovBot README
+#+title: MarkovBot
 
-* MarkovBot
 A Telegram bot that trains a markov chain on your group chat.
 
 ** Running
