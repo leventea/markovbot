@@ -14,7 +14,17 @@ The `MarkovBot.Utilities` module contains a helper function that trains the bot 
 
 - Open a REPL (`iex -S mix`)
 - Run `MarkovBot.Utilties.train_from_telegram(path_to_file)`
+
+Note: In case you wish to return the chain to its previous state later, force a backup with a non-timestamp name (only timestamped files get purged) via
+`MarkovBot.Scheduler.Tasks.backup(backup_name_here)`
+
 - Force an auto-save to write the chain to disk via `MarkovBot.Scheduler.Tasks.autosave`
+
+# Updating the configuration at runtime
+
+You can update the config at runtime with built-in Elixir utilities from the Application module,
+such as `put_env` or `put_all_env`. However, this will not update the `config/config.exs` file,
+in order to make your changes persistent you will have to edit it manually.
 
 # Defaults
 
