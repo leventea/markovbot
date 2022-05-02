@@ -10,11 +10,7 @@ A Telegram bot that trains a markov chain on your group chat.
 ** Training the bot on a Telegram export
 
 The ~MarkovBot.Utilities~ module contains a helper function that trains the bot on a JSON Telegram export.
-
-#+NAME: Start an iex session
-#+BEGIN_SRC shell
-iex -S mix # Start an iex session along with the bot
-#+END_SRC
+From a REPL, run:
 
 #+NAME: Train the chain on an export
 #+BEGIN_SRC elixir
