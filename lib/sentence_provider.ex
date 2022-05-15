@@ -11,7 +11,7 @@ defmodule SentenceProvider do
   end
 
   def train(pid, list) when is_list(list) do
-    GenServer.call(pid, {:train_from_list, list})
+    GenServer.call(pid, {:train_from_list, list}, :infinity)
   end
 
   def flush(pid) do
